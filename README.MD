@@ -1,5 +1,18 @@
 # agx 机械臂
 
+# TODO
+- Unify the joint state names between the URDF file (starting from 1) and piper_ctrl_single_node.py (starting from 0).
+- Set the gripper joints (joint7 and joint8) in the URDF as mimic joints.
+  - "/joint_states" is published from "/joint_state_publisher_gui" node
+    - [joint1, joint2, joint3, joint4, joint5, joint6, joint7(right gripper tip), joint8(left gripper tip)]
+  - "/joint_states_single" is published from "/piper_ctrl_single_node"
+    - [joint0, joint1, joint2, joint3, joint4, joint5, joint6, joint7]
+- Modify piper_ctrl_single_node.py to handle and control the renamed joint_states.
+  - Specifically, adjust the remapping in start_single_piper_rviz.launch.
+- Ensure compatibility with MoveIt.
+- Ensure compatibility with ros_control.
+- Consider rewriting piper_ctrl_single_node.py in C++ to better integrate with ros_control.
+
 [EN](README(EN).md)
 
 ![ubuntu](https://img.shields.io/badge/Ubuntu-20.04-orange.svg)
