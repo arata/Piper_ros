@@ -506,12 +506,13 @@
     <child
       link="link8" />
     <axis
-      xyz="0 0 1" />
+      xyz="0 0 -1" />
     <limit
       lower="-0.04"
       upper="0"
       effort="10"
       velocity="1" />
+    <mimic joint="joint7"/>
   </joint>
 
 <!-- controller -->
@@ -543,7 +544,7 @@
         <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
- 
+
   <!-- <gazebo reference="base_link">
     <material>Gazebo/Black</material>
   </gazebo>
@@ -551,7 +552,7 @@
   <gazebo reference="link1">
     <material>Gazebo/White</material>
   </gazebo>
- 
+
   <gazebo reference="link2">
     <material>Gazebo/White</material>
   </gazebo>
@@ -559,23 +560,23 @@
   <gazebo reference="link3">
     <material>Gazebo/White</material>
   </gazebo>
- 
+
   <gazebo reference="link4">
     <material>Gazebo/Black</material>
   </gazebo>
- 
+
   <gazebo reference="link5">
     <material>Gazebo/White</material>
   </gazebo>
- 
+
   <gazebo reference="link6">
     <material>Gazebo/White</material>
   </gazebo>
- 
+
   <gazebo reference="link7">
     <material>Gazebo/Orange</material>
   </gazebo>
- 
+
   <gazebo reference="link8">
     <material>Gazebo/Orange</material>
   </gazebo> -->
