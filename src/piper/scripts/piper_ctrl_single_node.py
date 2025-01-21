@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*-coding:utf8-*-
+# -*- coding:utf-8 -*-
 # 本文件为控制单个机械臂节点，控制夹爪机械臂运动
 from typing import (
     Optional,
@@ -62,7 +62,7 @@ class C_PiperRosNode():
                 self.rviz_ctrl_flag = True
         rospy.loginfo("%s is %s", rospy.resolve_name('~rviz_ctrl_flag'), self.rviz_ctrl_flag)
 
-        self.joint_pub = rospy.Publisher('joint_states_single', JointState, queue_size=1)
+        self.joint_pub = rospy.Publisher('joint_states', JointState, queue_size=1)
         self.arm_status_pub = rospy.Publisher('arm_status', PiperStatusMsg, queue_size=1)
         self.end_pose_euler_pub = rospy.Publisher('end_pose_euler', PosCmd, queue_size=1)
         self.end_pose_pub = rospy.Publisher('end_pose', Pose, queue_size=1)
@@ -71,7 +71,8 @@ class C_PiperRosNode():
         self.__enable_flag = False
         # joint
         self.joint_states = JointState()
-        self.joint_states.name = ['joint0', 'joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6']
+        # self.joint_states.name = ['joint0', 'joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6']
+        self.joint_states.name = ['joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6', 'joint7'] # joint7 is gripper
         self.joint_states.position = [0.0] * 7
         self.joint_states.velocity = [0.0] * 6
         self.joint_states.effort = [0.0] * 7
@@ -169,24 +170,24 @@ class C_PiperRosNode():
     def PublishArmJointAndGripper(self):
         # 机械臂关节角和夹爪位置
         # 由于获取的原始数据是度为单位扩大了1000倍，因此要转为弧度需要先除以1000，再乘3.14/180，然后限制小数点位数为5位
-        joint_0:float = (self.piper.GetArmJointMsgs().joint_state.joint_1/1000) * 0.017444
-        joint_1:float = (self.piper.GetArmJointMsgs().joint_state.joint_2/1000) * 0.017444
-        joint_2:float = (self.piper.GetArmJointMsgs().joint_state.joint_3/1000) * 0.017444
-        joint_3:float = (self.piper.GetArmJointMsgs().joint_state.joint_4/1000) * 0.017444
-        joint_4:float = (self.piper.GetArmJointMsgs().joint_state.joint_5/1000) * 0.017444
-        joint_5:float = (self.piper.GetArmJointMsgs().joint_state.joint_6/1000) * 0.017444
-        joint_6:float = self.piper.GetArmGripperMsgs().gripper_state.grippers_angle/1000000
-        vel_0:float = self.piper.GetArmHighSpdInfoMsgs().motor_1.motor_speed/1000
-        vel_1:float = self.piper.GetArmHighSpdInfoMsgs().motor_2.motor_speed/1000
-        vel_2:float = self.piper.GetArmHighSpdInfoMsgs().motor_3.motor_speed/1000
-        vel_3:float = self.piper.GetArmHighSpdInfoMsgs().motor_4.motor_speed/1000
-        vel_4:float = self.piper.GetArmHighSpdInfoMsgs().motor_5.motor_speed/1000
-        vel_5:float = self.piper.GetArmHighSpdInfoMsgs().motor_6.motor_speed/1000
-        effort_6:float = self.piper.GetArmGripperMsgs().gripper_state.grippers_effort/1000
+        joint_1:float = (self.piper.GetArmJointMsgs().joint_state.joint_1/1000) * 0.017444
+        joint_2:float = (self.piper.GetArmJointMsgs().joint_state.joint_2/1000) * 0.017444
+        joint_3:float = (self.piper.GetArmJointMsgs().joint_state.joint_3/1000) * 0.017444
+        joint_4:float = (self.piper.GetArmJointMsgs().joint_state.joint_4/1000) * 0.017444
+        joint_5:float = (self.piper.GetArmJointMsgs().joint_state.joint_5/1000) * 0.017444
+        joint_6:float = (self.piper.GetArmJointMsgs().joint_state.joint_6/1000) * 0.017444
+        joint_7:float = self.piper.GetArmGripperMsgs().gripper_state.grippers_angle/1000000
+        vel_1:float = self.piper.GetArmHighSpdInfoMsgs().motor_1.motor_speed/1000
+        vel_2:float = self.piper.GetArmHighSpdInfoMsgs().motor_2.motor_speed/1000
+        vel_3:float = self.piper.GetArmHighSpdInfoMsgs().motor_3.motor_speed/1000
+        vel_4:float = self.piper.GetArmHighSpdInfoMsgs().motor_4.motor_speed/1000
+        vel_5:float = self.piper.GetArmHighSpdInfoMsgs().motor_5.motor_speed/1000
+        vel_6:float = self.piper.GetArmHighSpdInfoMsgs().motor_6.motor_speed/1000
+        effort_7:float = self.piper.GetArmGripperMsgs().gripper_state.grippers_effort/1000
         self.joint_states.header.stamp = rospy.Time.now()
-        self.joint_states.position = [joint_0,joint_1, joint_2, joint_3, joint_4, joint_5,joint_6]  # Example values
-        self.joint_states.velocity = [vel_0, vel_1, vel_2, vel_3, vel_4, vel_5]  # Example values
-        self.joint_states.effort = [0, 0, 0, 0, 0, 0, effort_6]
+        self.joint_states.position = [joint_1, joint_2, joint_3, joint_4, joint_5, joint_6, joint_7]  # Example values
+        self.joint_states.velocity = [vel_1, vel_2, vel_3, vel_4, vel_5, vel_6]  # Example values
+        self.joint_states.effort = [0, 0, 0, 0, 0, 0, effort_7]
         # 发布所有消息
         self.joint_pub.publish(self.joint_states)
     
