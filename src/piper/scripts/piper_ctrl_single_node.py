@@ -176,7 +176,7 @@ class C_PiperRosNode():
         joint_4:float = (self.piper.GetArmJointMsgs().joint_state.joint_4/1000) * 0.017444
         joint_5:float = (self.piper.GetArmJointMsgs().joint_state.joint_5/1000) * 0.017444
         joint_6:float = (self.piper.GetArmJointMsgs().joint_state.joint_6/1000) * 0.017444
-        joint_7:float = self.piper.GetArmGripperMsgs().gripper_state.grippers_angle/1000000
+        joint_7:float = self.piper.GetArmGripperMsgs().gripper_state.grippers_angle/1000000 # this value is the finger distance
         vel_1:float = self.piper.GetArmHighSpdInfoMsgs().motor_1.motor_speed/1000
         vel_2:float = self.piper.GetArmHighSpdInfoMsgs().motor_2.motor_speed/1000
         vel_3:float = self.piper.GetArmHighSpdInfoMsgs().motor_3.motor_speed/1000
@@ -185,7 +185,7 @@ class C_PiperRosNode():
         vel_6:float = self.piper.GetArmHighSpdInfoMsgs().motor_6.motor_speed/1000
         effort_7:float = self.piper.GetArmGripperMsgs().gripper_state.grippers_effort/1000
         self.joint_states.header.stamp = rospy.Time.now()
-        self.joint_states.position = [joint_1, joint_2, joint_3, joint_4, joint_5, joint_6, joint_7]  # Example values
+        self.joint_states.position = [joint_1, joint_2, joint_3, joint_4, joint_5, joint_6, joint_7/2]  # Example values
         self.joint_states.velocity = [vel_1, vel_2, vel_3, vel_4, vel_5, vel_6]  # Example values
         self.joint_states.effort = [0, 0, 0, 0, 0, 0, effort_7]
         # 发布所有消息
