@@ -1,0 +1,17 @@
+<launch>
+
+  <rosparam file="$(find piper_control)/config/piper_ros_controllers.yaml"/>
+  <node name="controller_manager"
+        pkg="controller_manager"
+        type="spawner" respawn="false"
+        output="screen"
+        args="piper_arm_controller
+              piper_gripper_controller"/>
+
+  <node name="piper_control"
+        pkg="piper_control"
+        type="piper_control_node"
+        respawn="false"
+        output="screen" />
+
+</launch>

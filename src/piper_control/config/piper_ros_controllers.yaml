@@ -1,0 +1,54 @@
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+
+piper_gripper_controller:
+  type: position_controllers/GripperActionController
+  joint: joint7
+  # publish_rate: 250
+  # action_monitor_rate: 10
+  # state_publish_rate:  100
+  # stall_velocity_threshold: 0.01
+  # goal_tolerance: 0.2
+  # stall_timeout: 0.3
+
+piper_arm_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+    - joint5
+    - joint6
+  gains:
+    joint1:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    joint2:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    joint3:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    joint4:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    joint5:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    joint6:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
